@@ -7,4 +7,6 @@
  */
 require_once './vendor/autoload.php';
 use Xhprof\Sdk\Xhprof;
-Xhprof::Hello();
+
+$x = new Xhprof();
+$x->IsCollection();
