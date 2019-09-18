@@ -1,0 +1,21 @@
+{
+  "name": "knight0zh/xhprof-sdk",
+  "description": "xhpro采集配置",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "knight0zh",
+      "email": "knight0zh@hotmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Xhprof\\Sdk\\": "src/Xhprof/Sdk"
+    }
+  }
+}
