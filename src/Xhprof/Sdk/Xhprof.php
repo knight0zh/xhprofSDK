@@ -7,9 +7,15 @@ class Xhprof
     public $client;
     private $config;
 
-    public function __construct()
+    public function __construct($configFile)
     {
-        $this->config = require_once __DIR__.'/../config.php';
+        if (file_exists($configFile)) {
+            $this->config = require_once $configFile;
+
+        }
+        if (empty($this->config)) {
+            $this->config = require_once __DIR__.'/../config.php';
+        }
         $this->client = new Client($this->config);
     }
 
@@ -73,7 +79,6 @@ class Xhprof
                 'request_ts_micro' => $requestTsMicro,
                 'request_date'     => date('Y-m-d', $time),
             ];
-
             try {
                 $this->config += ['db.options' => array()];
                 $mongo = new \MongoClient($this->config['db.host'], $this->config['db.options']);
