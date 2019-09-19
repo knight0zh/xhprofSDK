@@ -1,7 +1,6 @@
 {
   "name": "knight0zh/xhprof-sdk",
   "description": "xhpro采集配置",
-  "type": "project",
   "license": "MIT",
   "authors": [
     {
