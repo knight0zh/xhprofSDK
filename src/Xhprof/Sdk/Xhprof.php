@@ -15,21 +15,21 @@ class Xhprof
 
     private function IsCollection()
     {
-        //        $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        $url = 'website.huidian.api.ulucu.com/recognition/face/shopping_guide/store_rank';
+        $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         $api = parse_url($url, PHP_URL_PATH);
         $xRate = $this->client->GetInfo($api);
         if ($xRate === 0 || $xRate > 100) {
             return false;
         }
 
-        return mt_rand(1, 100) <= $xRate ;
+        return mt_rand(1, 100) <= $xRate;
     }
 
     public function IsXhprof()
     {
         if ( ! extension_loaded('tideways_xhprof')) {
             error_log('tideways must be loaded');
+
             return;
         }
         // 如果是运行脚本不采集
@@ -37,18 +37,11 @@ class Xhprof
         if (substr($sapi_type, 0, 3) == 'cgi' || substr($sapi_type, 0, 3) == 'cli') {
             return;
         }
-
-        if (!$this->IsCollection()){
+        if ( ! $this->IsCollection()) {
             return;
         }
-
-        tideways_xhprof_enable(
-            TIDEWAYS_XHPROF_FLAGS_MEMORY
-            | TIDEWAYS_XHPROF_FLAGS_MEMORY_MU
-            | TIDEWAYS_XHPROF_FLAGS_MEMORY_PMU
-        //    | TIDEWAYS_XHPROF_FLAGS_CPU // 比较耗cpu性能,暂时不启用
+        tideways_xhprof_enable(TIDEWAYS_XHPROF_FLAGS_MEMORY | TIDEWAYS_XHPROF_FLAGS_MEMORY_MU | TIDEWAYS_XHPROF_FLAGS_MEMORY_PMU//    | TIDEWAYS_XHPROF_FLAGS_CPU // 比较耗cpu性能,暂时不启用
         );
-
         ini_set('display_errors', 0);
         register_shutdown_function(function () {
             $data['profile'] = tideways_xhprof_disable();
@@ -80,6 +73,7 @@ class Xhprof
                 'request_ts_micro' => $requestTsMicro,
                 'request_date'     => date('Y-m-d', $time),
             ];
+
             try {
                 $this->config += ['db.options' => array()];
                 $mongo = new \MongoClient($this->config['db.host'], $this->config['db.options']);
@@ -87,7 +81,6 @@ class Xhprof
             } catch (Exception $e) {
                 error_log('xhgui - '.$e->getMessage());
             }
-
         });
 
     }

@@ -27,9 +27,8 @@ class Client
         if ($response->getStatusCode() != '200') {
             return 0;
         }
-
-
         $response = json_decode($response->getBody()->getContents(), true);
+
         return empty($response['data']) ? 0 : $response['data'];
     }
 
