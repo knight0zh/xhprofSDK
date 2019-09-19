@@ -9,4 +9,4 @@ require_once './vendor/autoload.php';
 use Xhprof\Sdk\Xhprof;
 
 $x = new Xhprof();
-$x->IsCollection();
+$x->IsXhprof();
